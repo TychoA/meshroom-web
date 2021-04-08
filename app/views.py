@@ -1,5 +1,6 @@
 # Include our application
 from app import app
+from flask import render_template
 
 # Define a route which will capture all routes and link them back to index
 @app.route('/', defaults = {'path': ''})

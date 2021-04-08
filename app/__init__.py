@@ -1,5 +1,5 @@
 # Dependencies
-from flask import Flask, render_template, jsonify, request
+from flask import Flask
 
 # Define the application and port
 # Flask accepts a static folder parameter in which the static js and css is located

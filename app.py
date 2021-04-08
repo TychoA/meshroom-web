@@ -15,3 +15,7 @@ def index(path):
 
     # Return the index page. By default, Flask will look into a /templates folder
     return render_template('index.html')
+
+# When this script is run directly, start the flask application
+if __name__ == "__main__":
+    app.run(port=port)

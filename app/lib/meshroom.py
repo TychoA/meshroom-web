@@ -32,10 +32,22 @@ class Meshroom(object):
             raise Exception(f"Config file {config} is not a JSON file")
 
         # Run the meshroom cli
-        process = subprocess.run([
+        process = subprocess.Popen([
             path.join("meshroom", "meshroom_batch"),
             "--inputRecursive", self._input,
             "--output", self._output,
             "--overrides", config,
             "--save", path.join(self._output, "project")
-        ])
+        ], stdout=subprocess.PIPE)
+
+        # Print the output
+        while True:
+
+            # Read the current line of the process' output
+            output = process.stdout.readline()
+            if output == '' and process.poll() is not None:
+                break
+
+            # Output the current line
+            if output:
+                print(output)

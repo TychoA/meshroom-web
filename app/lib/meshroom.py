@@ -14,7 +14,7 @@ class Meshroom(object):
         self._input = inputdir
         self._output = outputdir
 
-    def run(config):
+    def run(self, config):
         """
         Run a simulation with a given configuration file.
 
@@ -32,7 +32,7 @@ class Meshroom(object):
             raise Exception(f"Config file {config} is not a JSON file")
 
         # Run the meshroom cli
-        subprocess.run([
+        process = subprocess.run([
             path.join("meshroom", "meshroom_batch"),
             "--inputRecursive", self._input,
             "--output", self._output,

@@ -11,16 +11,23 @@ class Meshroom(object):
         inputdir: Path to input folder where the images of the model should be.
         outputdir: Path where meshroom will place its output.
         """
+        if not path.isdir(inputdir):
+            raise Exception(f"{inputdir} is not a directory")
+        if not path.isdir(outputdir):
+            raise Exception(f"{outputdir} is not a directory")
+
+        # Store the references to the input and output directories
         self._input = inputdir
         self._output = outputdir
 
-    def run(self, config):
+    def run(self, config, pipe):
         """
         Run a simulation with a given configuration file.
 
         raises: Exception
         ---
         config: Path to JSON file that holds the configuration of a meshroom simulation.
+        pipe: Object with a .send method to which the pipe the output of the process
         """
 
         # Check if the given config file exists
@@ -30,6 +37,10 @@ class Meshroom(object):
         # Check if it's a json file
         if not config.endswith('.json'):
             raise Exception(f"Config file {config} is not a JSON file")
+
+        # Check if meshroom exec is available
+        if not path.isfile(path.join('meshroom', 'meshroom_batch')):
+            raise Exception("Meshroom executable is not available")
 
         # Run the meshroom cli
         process = subprocess.Popen([
@@ -50,4 +61,4 @@ class Meshroom(object):
 
             # Output the current line
             if output:
-                print(output)
+                pipe.send(output)

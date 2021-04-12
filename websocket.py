@@ -3,6 +3,7 @@ import asyncio
 import websockets
 import json
 from app.lib.meshroom import Meshroom
+from os import path
 
 async def consumer(websocket, message):
     """
@@ -15,8 +16,8 @@ async def consumer(websocket, message):
     if (message['type'] == 'run'):
 
         # Set up a new meshroom process
-        m = Meshroom('tests\input', 'tests\output')
-        await m.run('tests\config.json', pipe=websocket)
+        m = Meshroom(path.join('tests', 'input'), path.join('tests', 'output'))
+        await m.run(path.join('tests', 'config.json'), pipe=websocket)
 
 async def consumer_handler(websocket, path):
     """Handler that installs a callback for when the websocket server receives a message"""
@@ -24,7 +25,7 @@ async def consumer_handler(websocket, path):
         await consumer(websocket, message)
 
 # Define the ip address and port at which to run the websocket server
-ip = '127.0.0.1'
+ip = '0.0.0.0'
 port = 5678
 
 # Run the websocket server at the designated ip address and port

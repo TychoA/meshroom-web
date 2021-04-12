@@ -1,16 +1,18 @@
-FROM python:3.9-slim-buster
+FROM ubuntu:latest
 
 WORKDIR /app
+
+RUN apt-get update && \
+    apt-get install -y python3-pip python3-dev curl tar gzip && \
+    pip3 install --upgrade pip
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
-RUN apt-get update && apt-get install -y bash curl
+COPY downloadmeshroom downloadmeshroom
 
-COPY downloadmeshroom.sh downloadmeshroom.sh
-
-RUN /bin/bash ./downloadmeshroom.sh
+RUN /app/downloadmeshroom
 
 COPY . .
 
-CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
+# CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]

@@ -1,5 +1,6 @@
 from os import path
 import subprocess
+import shutil
 
 class Meshroom(object):
 
@@ -39,12 +40,12 @@ class Meshroom(object):
             raise Exception(f"Config file {config} is not a JSON file")
 
         # Check if meshroom exec is available
-        if not path.isfile(path.join('meshroom', 'meshroom_batch')):
+        if not path.isfile(path.join('.', 'meshroom', 'meshroom_batch')):
             raise Exception("Meshroom executable is not available")
 
         # Run the meshroom cli
         process = subprocess.Popen([
-            path.join("meshroom", "meshroom_batch"),
+            path.join(".", "meshroom", "meshroom_batch"),
             "--inputRecursive", self._input,
             "--output", self._output,
             "--overrides", config,

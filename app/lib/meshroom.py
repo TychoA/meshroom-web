@@ -28,7 +28,7 @@ class Meshroom(object):
         raises: Exception
         ---
         config: Path to JSON file that holds the configuration of a meshroom simulation.
-        pipe: Object with a .send method to which the pipe the output of the process
+        pipe: Function that receives the output of the program.
         """
 
         # Check if the given config file exists
@@ -62,4 +62,4 @@ class Meshroom(object):
 
             # Output the current line
             if output:
-                pipe.send(output)
+                pipe(output)

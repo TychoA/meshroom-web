@@ -21,14 +21,14 @@ async def consumer(websocket, message):
 
     # Bind the websocket as first parameter to the pipe function so it only
     # accepts a single argument, which allows us to pass it to the run method
-    pipe = partial(pipe, websocket)
+    wspipe = partial(pipe, websocket)
 
     # Handle a run request, at which we want to start a new meshroom process
     if (message['type'] == 'run'):
 
         # Set up a new meshroom process
         m = Meshroom(path.join('tests', 'input'), path.join('tests', 'output'))
-        await m.run(path.join('tests', 'config.json'), pipe=pipe)
+        await m.run(path.join('tests', 'config.json'), pipe=wspipe)
 
 async def consumer_handler(websocket, path):
     """Handler that installs a callback for when the websocket server receives a message"""

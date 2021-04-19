@@ -3,7 +3,7 @@ FROM ubuntu:latest
 WORKDIR /app
 
 RUN apt-get update && \
-    apt-get install -y python3-pip python3-dev && \
+    apt-get install -y python3-pip python3-dev libgssapi-krb5-2 && \
     pip3 install --upgrade pip
 
 COPY requirements.txt requirements.txt

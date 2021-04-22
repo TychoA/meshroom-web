@@ -3,13 +3,22 @@
     <head>
         <title>Meshroom web</title>
 
+        <!-- UIkit CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='thirdparty/uikit/css/uikit.min.css" />
+
+        <!-- UIkit JS -->
+        <script src="{{ url_for('static', filename='thirdparty/uikit/js/uikit.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='thirdparty/uikit/js/uikit-icons.min.js') }}"></script>
+
         <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}" />
         <script type="module" src="{{ url_for('static', filename='app.js') }}"></script>
     </head>
     <body>
 
-        <h1>Meshroom web</h1>
-        <div id="main"></div>
+        <div class="uk-container">
+            <h1 class="uk-heading-large">Meshroom web</h1>        
+            <div id="main"></div>
+        </div>
 
     </body>
 </html>

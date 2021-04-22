@@ -21,7 +21,7 @@ class Meshroom(object):
         self._input = inputdir
         self._output = outputdir
 
-    def run(self, config, pipe):
+    async def run(self, config, pipe):
         """
         Run a simulation with a given configuration file.
 
@@ -62,4 +62,4 @@ class Meshroom(object):
 
             # Output the current line
             if output:
-                pipe(output)
+                await pipe(output)

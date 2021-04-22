@@ -10,13 +10,13 @@ window.addEventListener('DOMContentLoaded', () => {
     // Start a websocket connection. This websocket connection allows us to
     // ping the backend and start an actual meshroom process. This process
     // also streams the process' stdout over the connection
-    const websocket = new WebSocket('ws://0.0.0.0:5678');
+    const websocket = new WebSocket('ws://127.0.0.1:5678');
 
     // Listen to incoming messages, which we want to stream the stdout element
-    websocket.onmessage = (message) => {
+    websocket.onmessage = (event) => {
 
         // Get the text from the blob
-        message.text().then((text) => {
+        event.data.text().then((text) => {
 
             // And update the stdout
             stdout.textContent = stdout.textContent + text;

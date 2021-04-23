@@ -1,0 +1,11 @@
+Todos
+---
+- entering a JSON configuration object in the frontend webform doesn't do anything
+- final model / output of meshroom should be exportable/downloadable
+- the application doesn't run automatically as docker image (yet, for dev reasons, should be done at the end)
+- frontend form for starting meshroom should dissappear and replaced with just the output of the program when started
+
+Wishlist
+---
+- visualisation of the output of meshroom
+- user friendly configuration of meshroom

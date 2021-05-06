@@ -23,6 +23,17 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // Fetch the default configuration of meshroom from the API
+    fetch('/config').then((res) => {
+
+        // Fetch the text and load it into the form
+        res.text().then((text) => {
+
+            // Set the text on the form field that holds the json configuration
+            form.querySelector('textarea').textContent = text;
+        });
+    });
+
     // Listen until the user submits the form
     form.addEventListener('submit', (event) => {
 
@@ -40,14 +51,25 @@ window.addEventListener('DOMContentLoaded', () => {
         const loader = overlay.appendChild(document.createElement('div'));
         loader.setAttribute('uk-spinner', true);
 
+        // List of promises that are required to run meshroom
+        const promises = [
+            fetch('/upload', {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                body: formdata
+            }),
+            fetch('/config', {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'same-origin',
+                body: formdata
+            })
+        ];
+
         // Make a post request to upload the images
-        fetch('/upload', {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            body: formdata
-        }).then(() => {
+        Promise.all(promises).then(() => {
 
             // Remove the loader
             overlay.remove();
@@ -62,8 +84,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
             // Refresh the view to show the progress of the meshroom progress
             websocket.send(JSON.stringify({ type: 'run' }));
-        }).catch(() => {
+        }).catch((err) => {
 
+            console.log(err);
             // Remove the loader
             overlay.remove();
 

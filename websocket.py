@@ -28,7 +28,7 @@ async def consumer(websocket, message):
 
         # Set up a new meshroom process
         m = Meshroom(path.join('model', 'input'), path.join('model', 'output'))
-        await m.run(path.join('model', 'config.json'), pipe=wspipe)
+        await m.run(path.join('model', 'default.json'), pipe=wspipe)
 
 async def consumer_handler(websocket, path):
     """Handler that installs a callback for when the websocket server receives a message"""
